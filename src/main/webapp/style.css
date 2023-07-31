@@ -1,0 +1,13 @@
+@charset "EUC-KR";
+div{
+	line-height: 45px;
+}
+
+table, td, th {
+  border: 1px solid;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
