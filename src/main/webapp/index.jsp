@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*" %>
 <!DOCTYPE html>
-<%@ page import="Test.SQLTest" %>
+<%@ page import="Wifi.Sql" %>
 <jsp:include page="menu.jspf" />
 <html>
 <head>
@@ -11,7 +11,7 @@
 </head>
 <body>
 <%!
-	SQLTest sql = new SQLTest();
+	Sql sql = new Sql();
 	String[] columns = {"거리(Km)", "관리번호", "자치구", "와이파이명", "도로명주소", "상세주소", 
 			"설치위치(층)", "설치유형", "설치기관", "서비스구분", "망종류", "설치년도",
 			 "실내외구분", "WIFI접속환경", "X좌표", "Y좌표", "작업일자"};

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%@ page import="Test.APITest" %>
+<%@ page import="Wifi.Api" %>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -10,7 +10,7 @@
 </head>
 <body>
 <%
-	APITest api = new APITest();
+	Api api = new Api();
 	
 	int totalCnt = api.getAllWifiInfo();
 	

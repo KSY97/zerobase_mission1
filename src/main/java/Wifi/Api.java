@@ -1,4 +1,4 @@
-package Test;
+package Wifi;
 
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -10,11 +10,11 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-public class APITest {
+public class Api{
 	
 	int totalCnt = Integer.MAX_VALUE;
    
-	public boolean getWifiInfo(SQLTest sql, int start, int end) throws Exception {
+	public boolean getWifiInfo(Sql sql, int start, int end) throws Exception {
 		StringBuilder urlBuilder = new StringBuilder("http://openapi.seoul.go.kr:8088");
         urlBuilder.append("/" + URLEncoder.encode("676a55446367676f3336526e487656","UTF-8") ); /*인증키(sample사용시에는 호출시 제한됩니다.)*/
         urlBuilder.append("/" + URLEncoder.encode("json","UTF-8") ); /*요청파일타입(xml,xmlf,xls,json) */
@@ -61,7 +61,7 @@ public class APITest {
 		int end = 1000;
 		boolean success = true;
 		int num = 0;
-		SQLTest sql = new SQLTest();
+		Sql sql = new Sql();
 		sql.open();
 		
 		while(start < totalCnt) {

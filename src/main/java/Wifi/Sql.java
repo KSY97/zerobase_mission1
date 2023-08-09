@@ -1,4 +1,4 @@
-package Test;
+package Wifi;
 
 import java.sql.*;
 import java.util.Map;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class SQLTest {
+public class Sql {
 	
 	private Connection con = null;
 	private PreparedStatement pstmt = null;

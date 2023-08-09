@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<%@ page import="Test.SQLTest" %>
+<%@ page import="Wifi.Sql" %>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -10,7 +10,7 @@
 </head>
 <body>
 <%!
-	SQLTest sql = new SQLTest();
+	Sql sql = new Sql();
 %>
 <%
 	

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
-<%@ page import="Test.SQLTest" %>
+<%@ page import="Wifi.Sql" %>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -12,7 +12,7 @@
 </head>
 <body>
 <%!
-	SQLTest sql = new SQLTest();
+	Sql sql = new Sql();
 %>
 <%	
 	request.setCharacterEncoding("utf-8");
