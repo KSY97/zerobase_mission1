@@ -53,7 +53,7 @@ public class APITest {
         }
         dataStr.delete(dataStr.length()-2, dataStr.length());
         
-		return sql.insert(dataStr);
+		return sql.insertWifi(dataStr);
 	}
 	
 	public int getAllWifiInfo() {
@@ -63,7 +63,6 @@ public class APITest {
 		int num = 0;
 		SQLTest sql = new SQLTest();
 		sql.open();
-		sql.createWifi();
 		
 		while(start < totalCnt) {
 			try {

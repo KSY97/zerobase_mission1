@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util. *" %>
+    pageEncoding="UTF-8" import="java.util.*" %>
 <!DOCTYPE html>
 <%@ page import="Test.SQLTest" %>
+<jsp:include page="menu.jspf" />
 <html>
 <head>
 <meta charset="UTF-8">
@@ -16,14 +17,13 @@
 			 "실내외구분", "WIFI접속환경", "X좌표", "Y좌표", "작업일자"};
 %>
 <%
+	sql.open();
+	sql.createTable();
+	sql.close();
 	String lat = request.getParameter("lat");
 	String lnt = request.getParameter("lnt");
 %>
 <div>
-	<h1> 와이파이 정보 구하기 </h1>
-	
-	<a href="/">홈</a> | <a>위치 히스토리 목록</a> | <a href="load-wifi.jsp">Open API 와이파이 정보 가져오기</a><br>
-	
 	<%
 		out.print("LAT: <input type='text' id='lat' value=");
 		if(lat != null)
@@ -38,7 +38,7 @@
 			out.print("'0.0'>");
 	%>
 	
-	<input type="button" value="내 위치 가져오기" >
+	<button onclick="geoFindMe()">내 위치 가져오기</button>
 	<button type="submit" onclick="test(lat.value, lnt.value)">근처 WIFI 정보 보기</button>
 </div>
 
@@ -47,11 +47,11 @@
 	
 <table>
   <tr height="50">
-<%
+  <%
 	for(String column : columns){
-  		out.println("<th>" + column + "</th>");
+  		out.println("<th scope=\"col\">" + column + "</th>");
   	}
-%>
+  %>
   </tr>
   <%
   	if(lat==null && lnt==null){
@@ -61,12 +61,18 @@
   	} else {
   		sql.open();
   		List<Map<String, String>> dataList = sql.selectWifi(lat, lnt, 20);
+  		sql.close();
   		
   		if(dataList != null){
   			for(Map<String, String> dataMap : dataList){
   	  			out.println("<tr>");
 	  	  		for(String column : columns){
-	  	    		out.println("<td>" + dataMap.get(column) + "</td>");
+	  	    		if("와이파이명".equals(column)){
+	  	    			out.print("<td><a href=\"detail.jsp?mgrNo="+ dataMap.get("관리번호") + "\">");
+	  	    			out.println(dataMap.get(column) + "</a></td>");
+	  	    		} else {
+	  	    			out.println("<td>" + dataMap.get(column) + "</td>");
+	  	    		}
 	  	    	}
   	  	  		out.println("</tr>");
   			}
@@ -75,15 +81,39 @@
   	  		out.println("	<td align=center colspan=\"17\"><b>DB정보를 불러오는데 실패했습니다.</b></td>");
   	  		out.println("</tr>");
   		}
-  		
-  		sql.close();
   	}
   %>
 </table>
 <script type="text/javascript">
-	function test(lat, lnt){
-		location.href="/?lat="+lat+"&lnt="+lnt;
+	function test(latValue, lntValue){
+		location.href="/?lat="+latValue+"&lnt="+lntValue;
 	}
+	
+	function geoFindMe() {
+		function success(position) {
+			const latitude = position.coords.latitude;
+			const longitude = position.coords.longitude;
+			
+			console.log(latitude);
+			console.log(longitude);
+			
+			document.getElementById("lat").value = latitude;
+			document.getElementById("lnt").value = longitude;
+		}
+		
+		function error() {
+			alert("현재 위치를 가져올 수 없음");
+			console.log("위치X");
+		}
+		
+		if (!navigator.geolocation) {
+			alert("브라우저가 위치 정보를 지원하지 않음");
+			console.log("위치정보지원X");
+		} else {
+			status.textContent = "위치 파악 중…";
+			navigator.geolocation.getCurrentPosition(success, error);
+		}
+	}	
 </script>
 </body>
 </html>
