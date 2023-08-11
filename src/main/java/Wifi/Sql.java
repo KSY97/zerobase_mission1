@@ -105,7 +105,7 @@ public class Sql {
 			
 			sql.append("CREATE TABLE IF NOT EXISTS ");
 			sql.append(this.historyTableName);
-			sql.append("   (ID INTEGER PRIMARY KEY,");
+			sql.append("   (HISTORY_ID INTEGER PRIMARY KEY,");
 			sql.append("	LAT TEXT, ");
 			sql.append("	LNT TEXT, ");
 			sql.append("	DATE_TIME TEXT) ");
@@ -130,7 +130,7 @@ public class Sql {
 			
 			sql.append("CREATE TABLE IF NOT EXISTS ");
 			sql.append(this.bookmarkTableName);
-			sql.append("   (ID INTEGER PRIMARY KEY,");
+			sql.append("   (BOOKMARK_ID INTEGER PRIMARY KEY,");
 			sql.append("	NAME TEXT, ");
 			sql.append("	\"ORDER\" INTEGER, ");
 			sql.append("	DATE_TIME TEXT, ");
@@ -156,14 +156,14 @@ public class Sql {
 			
 			sql.append("CREATE TABLE IF NOT EXISTS ");
 			sql.append(this.bookmarkWifiTableName);
-			sql.append("   (ID INTEGER PRIMARY KEY,");
+			sql.append("   (BOOKMARK_WIFI_ID INTEGER PRIMARY KEY,");
 			sql.append("	BOOKMARK_ID TEXT, ");
 			sql.append("	BOOKMARK_NAME TEXT, ");
-			sql.append("	WIFI_ID TEXT, ");
+			sql.append("	WIFI_MGR_NO TEXT, ");
 			sql.append("	WIFI_NAME TEXT, ");
 			sql.append("	DATE_TIME TEXT, ");
-			sql.append("	FOREIGN KEY(BOOKMARK_ID) REFERENCES bookmark(ID) ");
-			sql.append("	FOREIGN KEY(WIFI_ID) REFERENCES wifi(WIFO_MGR_NO)) ");
+			sql.append("	FOREIGN KEY(BOOKMARK_ID) REFERENCES bookmark(BOOKMARK_ID) ");
+			sql.append("	FOREIGN KEY(WIFI_MGR_NO) REFERENCES wifi(WIFO_MGR_NO)) ");
 			
 			try {
 				this.pstmt = con.prepareStatement(sql.toString());
@@ -264,7 +264,7 @@ public class Sql {
 					
 			sql.append("INSERT INTO ");
 			sql.append(this.bookmarkWifiTableName);
-			sql.append("(BOOKMARK_ID, BOOKMARK_NAME, WIFI_ID, WIFI_NAME, DATE_TIME) VALUES ");
+			sql.append("(BOOKMARK_ID, BOOKMARK_NAME, WIFI_MGR_NO, WIFI_NAME, DATE_TIME) VALUES ");
 			sql.append(dataStr);
 			
 			try {
@@ -461,7 +461,7 @@ public class Sql {
 				while(rs.next()) {
 					Map<String, String> dataMap = new HashMap<String, String>();
 					
-					dataMap.put("ID", rs.getString("ID"));
+					dataMap.put("ID", rs.getString("HISTORY_ID"));
 					dataMap.put("X좌표", rs.getString("LNT"));
 					dataMap.put("Y좌표", rs.getString("LAT"));
 					dataMap.put("조회일자", rs.getString("DATE_TIME"));
@@ -500,7 +500,7 @@ public class Sql {
 				while(rs.next()) {
 					Map<String, String> dataMap = new HashMap<String, String>();
 					
-					dataMap.put("ID", rs.getString("ID"));
+					dataMap.put("ID", rs.getString("BOOKMARK_ID"));
 					dataMap.put("북마크 이름", rs.getString("NAME"));
 					dataMap.put("순서", rs.getString("ORDER"));
 					dataMap.put("등록일자", rs.getString("DATE_TIME"));
@@ -534,7 +534,7 @@ public class Sql {
 			sql.append("SELECT * ");
 			sql.append("FROM ");
 			sql.append(this.bookmarkTableName);
-			sql.append(" WHERE ID=\"");
+			sql.append(" WHERE BOOKMARK_ID=\"");
 			sql.append(id);
 			sql.append("\"");
 
@@ -547,7 +547,7 @@ public class Sql {
 				if(rs.next()) {
 					
 					
-					dataMap.put("ID", rs.getString("ID"));
+					dataMap.put("ID", rs.getString("BOOKMARK_ID"));
 					dataMap.put("북마크 이름", rs.getString("NAME"));
 					dataMap.put("순서", rs.getString("ORDER"));
 					dataMap.put("등록일자", rs.getString("DATE_TIME"));
@@ -585,7 +585,7 @@ public class Sql {
 				while(rs.next()) {
 					Map<String, String> dataMap = new HashMap<String, String>();
 					
-					dataMap.put("ID", rs.getString("ID"));
+					dataMap.put("ID", rs.getString("BOOKMARK_WIFI_ID"));
 					dataMap.put("북마크 이름", rs.getString("BOOKMARK_NAME"));
 					dataMap.put("와이파이명", rs.getString("WIFI_NAME"));
 					dataMap.put("등록일자", rs.getString("DATE_TIME"));
@@ -614,7 +614,7 @@ public class Sql {
 			sql.append("SELECT * ");
 			sql.append("FROM ");
 			sql.append(this.bookmarkWifiTableName);
-			sql.append(" WHERE ID=\"");
+			sql.append(" WHERE BOOKMARK_WIFI_ID=\"");
 			sql.append(id);
 			sql.append("\"");
 
@@ -624,7 +624,7 @@ public class Sql {
 				Map<String, String> dataMap = new HashMap<String, String>();
 				
 				if(rs.next()) {
-					dataMap.put("ID", rs.getString("ID"));
+					dataMap.put("ID", rs.getString("BOOKMARK_WIFI_ID"));
 					dataMap.put("북마크 이름", rs.getString("BOOKMARK_NAME"));
 					dataMap.put("와이파이명", rs.getString("WIFI_NAME"));
 					dataMap.put("등록일자", rs.getString("DATE_TIME"));
@@ -651,7 +651,7 @@ public class Sql {
 			sql.append(this.bookmarkTableName);
 			sql.append(" SET ");
 			sql.append(update);
-			sql.append(" WHERE ID=\"");
+			sql.append(" WHERE BOOKMARK_ID=\"");
 			sql.append(id);
 			sql.append("\"");
 
@@ -678,7 +678,7 @@ public class Sql {
 			
 			sql.append("DELETE FROM ");
 			sql.append(this.historyTableName);
-			sql.append(" WHERE ID=\"");
+			sql.append(" WHERE HISTORY_ID=\"");
 			sql.append(id);
 			sql.append("\"");
 
@@ -705,7 +705,7 @@ public class Sql {
 			
 			sql.append("DELETE FROM ");
 			sql.append(this.bookmarkTableName);
-			sql.append(" WHERE ID=\"");
+			sql.append(" WHERE BOOKMARK_ID=\"");
 			sql.append(id);
 			sql.append("\"");
 
@@ -732,7 +732,7 @@ public class Sql {
 			
 			sql.append("DELETE FROM ");
 			sql.append(this.bookmarkWifiTableName);
-			sql.append(" WHERE ID=\"");
+			sql.append(" WHERE BOOKMARK_WIFI_ID=\"");
 			sql.append(id);
 			sql.append("\"");
 
