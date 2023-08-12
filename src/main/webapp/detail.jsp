@@ -30,7 +30,7 @@
 			
 			if(bookmarkList != null){
 				for(Map<String, String> bookmarkMap : bookmarkList){
-					out.print("<option value=\""+bookmarkMap.get("ID")+", "+bookmarkMap.get("북마크 이름")+"\">");
+					out.print("<option value=\""+bookmarkMap.get("ID")+"\">");
 					out.print(bookmarkMap.get("북마크 이름"));
 					out.println("</option>");
 				}
@@ -47,7 +47,6 @@
 				sql.close();
 				
 				out.println("<input type=\"hidden\" name=\"wifi-id\" value=" + dataMap.get("관리번호")+">");
-				out.println("<input type=\"hidden\" name=\"wifi-name\" value=" + dataMap.get("와이파이명")+">");
 
 				if(dataMap != null){
 					for(String column : columns){

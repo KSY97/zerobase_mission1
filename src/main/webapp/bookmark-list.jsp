@@ -26,7 +26,6 @@
   	<%
   		sql.open();
   		List<Map<String, String>> dataList = sql.selectBookmarkWifi();
-  		sql.close();
   		
   		if(dataList != null){
   			if(dataList.size() != 0){
@@ -35,6 +34,14 @@
   	  				for(String column : columns){
   	  					if("비고".equals(column)){
   	  						out.println("<td align=center><a href=\"bookmark-delete.jsp?id="+dataMap.get("ID")+"\">삭제</a></td>");
+  	  					} else if("북마크 이름".equals(column)){
+  	  						String bookmarkID = dataMap.get("bookmarkID");
+  	  						Map<String, String> bookmarkMap = sql.selectBookmark(bookmarkID);
+  	  						out.println("<td>"+bookmarkMap.get(column)+"</td>");
+  	  					} else if("와이파이명".equals(column)){
+  	  						String wifiID = dataMap.get("wifiID");
+	  						Map<String, String> wifiMap = sql.selectWifi(wifiID);
+	  						out.println("<td>"+wifiMap.get("와이파이명")+"</td>");
   	  					} else {
   	  						out.println("<td>"+dataMap.get(column)+"</td>");
   	  					}
@@ -51,6 +58,8 @@
   			out.println("	<td align=center colspan=\"5\"><b>정보가 존재하지 않습니다.</b></td>");
   			out.println("</tr>");
   		}
+  		
+  		sql.close();
   	%>
 
 </table>

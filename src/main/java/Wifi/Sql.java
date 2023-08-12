@@ -157,13 +157,11 @@ public class Sql {
 			sql.append("CREATE TABLE IF NOT EXISTS ");
 			sql.append(this.bookmarkWifiTableName);
 			sql.append("   (BOOKMARK_WIFI_ID INTEGER PRIMARY KEY,");
-			sql.append("	BOOKMARK_ID TEXT, ");
-			sql.append("	BOOKMARK_NAME TEXT, ");
+			sql.append("	BOOKMARK_ID INTEGER, ");
 			sql.append("	WIFI_MGR_NO TEXT, ");
-			sql.append("	WIFI_NAME TEXT, ");
 			sql.append("	DATE_TIME TEXT, ");
-			sql.append("	FOREIGN KEY(BOOKMARK_ID) REFERENCES bookmark(BOOKMARK_ID) ");
-			sql.append("	FOREIGN KEY(WIFI_MGR_NO) REFERENCES wifi(WIFO_MGR_NO)) ");
+			sql.append("	FOREIGN KEY(BOOKMARK_ID) REFERENCES bookmark(BOOKMARK_ID) ON DELETE CASCADE");
+			sql.append("	FOREIGN KEY(WIFI_MGR_NO) REFERENCES wifi(WIFO_MGR_NO) ON DELETE CASCADE) ");
 			
 			try {
 				this.pstmt = con.prepareStatement(sql.toString());
@@ -264,7 +262,7 @@ public class Sql {
 					
 			sql.append("INSERT INTO ");
 			sql.append(this.bookmarkWifiTableName);
-			sql.append("(BOOKMARK_ID, BOOKMARK_NAME, WIFI_MGR_NO, WIFI_NAME, DATE_TIME) VALUES ");
+			sql.append("(BOOKMARK_ID, WIFI_MGR_NO, DATE_TIME) VALUES ");
 			sql.append(dataStr);
 			
 			try {
@@ -586,8 +584,8 @@ public class Sql {
 					Map<String, String> dataMap = new HashMap<String, String>();
 					
 					dataMap.put("ID", rs.getString("BOOKMARK_WIFI_ID"));
-					dataMap.put("북마크 이름", rs.getString("BOOKMARK_NAME"));
-					dataMap.put("와이파이명", rs.getString("WIFI_NAME"));
+					dataMap.put("bookmarkID", rs.getString("BOOKMARK_ID"));
+					dataMap.put("wifiID", rs.getString("WIFI_MGR_NO"));
 					dataMap.put("등록일자", rs.getString("DATE_TIME"));
 					
 					dataList.add(dataMap);
@@ -625,8 +623,8 @@ public class Sql {
 				
 				if(rs.next()) {
 					dataMap.put("ID", rs.getString("BOOKMARK_WIFI_ID"));
-					dataMap.put("북마크 이름", rs.getString("BOOKMARK_NAME"));
-					dataMap.put("와이파이명", rs.getString("WIFI_NAME"));
+					dataMap.put("bookmarkID", rs.getString("BOOKMARK_ID"));
+					dataMap.put("wifiID", rs.getString("WIFI_MGR_NO"));
 					dataMap.put("등록일자", rs.getString("DATE_TIME"));
 				}
 				

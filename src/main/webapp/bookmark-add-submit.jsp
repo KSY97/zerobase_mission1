@@ -20,14 +20,10 @@
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 	String formattedDateTime = now.format(formatter);
 
-	String[] select = request.getParameter("select").split(", ");
-	String bookmarkID = select[0];
-	String bookmarkName = select[1];
-	
+	String bookmarkID = request.getParameter("select");
 	String wifiID = request.getParameter("wifi-id");
-	String wifiName = request.getParameter("wifi-name");
 	
-	String dataStr = "(\""+bookmarkID+"\", \""+bookmarkName+"\", \""+wifiID+"\", \""+wifiName+"\", \""+formattedDateTime+"\")";
+	String dataStr = "(\""+bookmarkID+"\", \""+wifiID+"\", \""+formattedDateTime+"\")";
 
 	sql.open();
 	boolean insert = sql.insertBookmarkWifi(dataStr);

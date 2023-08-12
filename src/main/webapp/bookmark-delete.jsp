@@ -20,7 +20,6 @@
 <% 
 sql.open();
 Map<String, String> dataMap = sql.selectBookmarkWifi(id);
-sql.close();
 %>
 
 <form action="bookmark-delete-submit.jsp" method="post">
@@ -32,7 +31,9 @@ sql.close();
 			if(dataMap == null){
 				out.print("");
 			} else {
-				out.print(dataMap.get("북마크 이름"));
+				String bookmarkID = dataMap.get("bookmarkID");
+				Map<String, String> bookmarkMap = sql.selectBookmark(bookmarkID);
+				out.print(bookmarkMap.get("북마크 이름"));
 			}
 			%></td>
 		</tr>
@@ -42,7 +43,9 @@ sql.close();
 			if(dataMap == null){
 				out.print("");
 			} else {
-				out.print(dataMap.get("와이파이명"));
+				String wifiID = dataMap.get("wifiID");
+				Map<String, String> wifiMap = sql.selectWifi(wifiID);
+				out.print(wifiMap.get("와이파이명"));
 			}
 			%></td>
 		</tr>
@@ -61,5 +64,8 @@ sql.close();
 		</tr>
 	</table>
 </form>
+<%
+sql.close();
+%>
 </body>
 </html>
