@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" %>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%@ page import="java.time.LocalDateTime" %>
-<%@ page import="java.time.format.DateTimeFormatter" %>
-<%@ page import="Wifi.Sql" %>
+<%@ page import="java.time.LocalDateTime"%>
+<%@ page import="java.time.format.DateTimeFormatter"%>
+<%@ page import="Wifi.Sql"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -11,10 +11,8 @@
 <title>와이파이 정보 구하기</title>
 </head>
 <body>
-<%!
-	Sql sql = new Sql();
-%>
-<%
+	<%!Sql sql = new Sql();%>
+	<%
 	request.setCharacterEncoding("utf-8");
 	LocalDateTime now = LocalDateTime.now();
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
@@ -22,31 +20,29 @@
 
 	String bookmarkID = request.getParameter("select");
 	String wifiID = request.getParameter("wifi-id");
-	
-	String dataStr = "(\""+bookmarkID+"\", \""+wifiID+"\", \""+formattedDateTime+"\")";
+
+	String dataStr = "(\"" + bookmarkID + "\", \"" + wifiID + "\", \"" + formattedDateTime + "\")";
 
 	sql.open();
 	boolean insert = sql.insertBookmarkWifi(dataStr);
 	sql.close();
-	
-	if(insert){
-%>
+
+	if (insert) {
+	%>
 	<script type="text/javascript">
 		alert("북마크 정보를 추가하였습니다.");
-		location.href="/bookmark-list.jsp";
+		location.href = "/bookmark-list.jsp";
 	</script>
-<%
+	<%
 	} else {
-%>
+	%>
 	<script type="text/javascript">
 		alert("북마크 정보를 추가할 수 없습니다.");
-		location.href="/bookmark-list.jsp";
+		location.href = "/bookmark-list.jsp";
 	</script>
-<%
+	<%
 	}
-	
-	
-%>
+	%>
 
 </body>
 </html>

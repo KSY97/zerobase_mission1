@@ -17,6 +17,7 @@
 	String id = request.getParameter("id");
 	
 	sql.open();
+	sql.activeForeignKeys();
 	boolean delete = sql.deleteBookmark(id);
 	sql.close();
 	

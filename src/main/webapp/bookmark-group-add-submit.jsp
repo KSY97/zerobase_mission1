@@ -30,7 +30,6 @@
 	sql.close();
 	
 	if(insert){
-		System.out.println(dataStr);
 %>
 	<script type="text/javascript">
 		alert("북마크 그룹 정보를 추가하였습니다.");

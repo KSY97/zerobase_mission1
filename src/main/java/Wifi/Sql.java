@@ -161,7 +161,7 @@ public class Sql {
 			sql.append("	WIFI_MGR_NO TEXT, ");
 			sql.append("	DATE_TIME TEXT, ");
 			sql.append("	FOREIGN KEY(BOOKMARK_ID) REFERENCES bookmark(BOOKMARK_ID) ON DELETE CASCADE");
-			sql.append("	FOREIGN KEY(WIFI_MGR_NO) REFERENCES wifi(WIFO_MGR_NO) ON DELETE CASCADE) ");
+			sql.append("	FOREIGN KEY(WIFI_MGR_NO) REFERENCES wifi(WIFI_MGR_NO) ON DELETE CASCADE) ");
 			
 			try {
 				this.pstmt = con.prepareStatement(sql.toString());
@@ -738,6 +738,28 @@ public class Sql {
 				this.pstmt = con.prepareStatement(sql.toString());
 				this.pstmt.executeUpdate();
 				
+			} catch(Exception e) {
+				System.out.println(e);
+				return false;
+			}
+			
+			return true;
+			
+		} else {
+			System.out.println("didn't opened");
+			return false;
+		}
+	}
+	
+	public boolean activeForeignKeys() {
+		if(this.isOpened) {
+			StringBuilder sql = new StringBuilder();
+			
+			sql.append("PRAGMA foreign_keys = ON");
+
+			try {
+				this.pstmt = con.prepareStatement(sql.toString());
+				this.pstmt.executeUpdate();				
 			} catch(Exception e) {
 				System.out.println(e);
 				return false;
